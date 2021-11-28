@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modul5HW1.Services;
+using Modul5HW1.Services.Abstractions;
 
 namespace Modul5HW1
 {
@@ -8,6 +10,7 @@ namespace Modul5HW1
         {
             var services = new ServiceCollection()
                 .AddTransient<Startup>()
+                .AddTransient<IUserService, UserService>()
                 .BuildServiceProvider();
 
             var startup = services.GetService<Startup>();
