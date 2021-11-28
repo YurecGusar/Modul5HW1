@@ -6,7 +6,9 @@ namespace Modul5HW1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Master");
+            var startup = new Startup();
+
+            startup.Run();
         }
     }
 }
