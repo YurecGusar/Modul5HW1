@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Modul5HW1
 {
@@ -6,8 +6,11 @@ namespace Modul5HW1
     {
         static void Main(string[] args)
         {
-            var startup = new Startup();
+            var services = new ServiceCollection()
+                .AddTransient<Startup>()
+                .BuildServiceProvider();
 
+            var startup = services.GetService<Startup>();
             startup.Run();
         }
     }
