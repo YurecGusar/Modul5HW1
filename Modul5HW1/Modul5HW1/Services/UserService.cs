@@ -13,45 +13,88 @@ namespace Modul5HW1.Services
 {
     internal class UserService : IUserService
     {
-        public Task CreateUserAsync(UserPostModel user)
+        public async Task<ResponseModel> CreateUserAsync(UserPostModel user)
         {
-            throw new NotImplementedException();
+            var url = @"https://reqres.in/api/users";
+
+            var result = await PostUserByUrlAsync(url, user);
+            
+            return result;
         }
 
-        public Task DeleteUserAsync(int id)
+        public async Task<HttpStatusCode> DeleteUserAsync(int id)
         {
-            throw new NotImplementedException();
+            HttpResponseMessage resp;
+            var url = $@"https://reqres.in/api/users/{id}";
+
+            using (var httpClient = new HttpClient())
+            {
+                resp = await httpClient.DeleteAsync(url);
+            }
+
+            return resp.StatusCode;
         }
 
         public async Task<UserModel> GetUserAsync(int id)
         {
-            var content = await GetContentByUrlAsync($"https://reqres.in/api/users/2");
+            var url = $"https://reqres.in/api/users/{id}";
 
-            var user = JsonConvert.DeserializeObject<UserModel>(content);
+            var user = await GetContentByUrlAsync<UserModel>(url);
 
             return user;
         }
 
         public async Task<UsersOnPageModel> GetUsersOnPageAsync(int pageId)
         {
-            var content = await GetContentByUrlAsync($"https://reqres.in/api/users?page={pageId}");
+            var url = $"https://reqres.in/api/users?page={pageId}";
 
-            var user = JsonConvert.DeserializeObject<UsersOnPageModel>(content);
+            var user = await GetContentByUrlAsync<UsersOnPageModel>(url);
 
             return user;
         }
 
-        public Task PatchUserAsync(UserPostModel user)
+        public async Task<ResponseModel> PatchUserAsync(UserPostModel user, int id)
         {
-            throw new NotImplementedException();
+            var url = @$"https://reqres.in/api/users/{id}";
+
+            var result = await PostUserByUrlAsync(url, user);
+
+            return result;
         }
 
-        public Task PutUserAsync(UserPostModel user)
+        public async Task<ResponseModel> PutUserAsync(UserPostModel user, int id)
         {
-            throw new NotImplementedException();
+            var url = $@"https://reqres.in/api/users/{id}";
+
+            var result = await PostUserByUrlAsync(url, user);
+
+            return result;
         }
 
-        private async Task<string> GetContentByUrlAsync(string url)
+        private async Task<ResponseModel> PostUserByUrlAsync(string url, UserPostModel user)
+        {
+            ResponseModel response;
+            var content = string.Empty;
+
+            using (var httpClient = new HttpClient())
+            {
+                var httpContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+
+                var result = await httpClient.PostAsync(url, httpContent);
+
+                if (result.StatusCode == HttpStatusCode.Created)
+                {
+                    content = await result.Content.ReadAsStringAsync();
+                }
+            }
+
+            response = JsonConvert.DeserializeObject<ResponseModel>(content);
+
+            return response;
+        }
+
+        private async Task<T> GetContentByUrlAsync<T>(string url)
+            where T : class
         {
             var content = string.Empty;
 
@@ -66,7 +109,9 @@ namespace Modul5HW1.Services
                 }
             }
 
-            return content;
+            var obj = JsonConvert.DeserializeObject<T>(content);
+
+            return obj;
         }
     }
 }
