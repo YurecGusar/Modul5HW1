@@ -39,7 +39,7 @@ namespace Modul5HW1.Services
         {
             var url = $"https://reqres.in/api/users/{id}";
 
-            var user = await GetContentByUrlAsync<UserModel>(url);
+            var user = await GetObjByUrlAsync<UserModel>(url);
 
             return user;
         }
@@ -48,7 +48,7 @@ namespace Modul5HW1.Services
         {
             var url = $"https://reqres.in/api/users?page={pageId}";
 
-            var user = await GetContentByUrlAsync<UsersOnPageModel>(url);
+            var user = await GetObjByUrlAsync<UsersOnPageModel>(url);
 
             return user;
         }
@@ -93,7 +93,7 @@ namespace Modul5HW1.Services
             return response;
         }
 
-        private async Task<T> GetContentByUrlAsync<T>(string url)
+        private async Task<T> GetObjByUrlAsync<T>(string url)
             where T : class
         {
             var content = string.Empty;

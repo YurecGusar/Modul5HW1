@@ -11,13 +11,16 @@ namespace Modul5HW1
 {
     class Startup
     {
-        private readonly IUserService _userService;
         private const int _globalId = 2;
+        private readonly IUserService _userService;
+        private readonly IUnknownService _unknownService;
 
         public Startup(
-            IUserService userService)
+            IUserService userService, 
+            IUnknownService unknownService)
         {
             _userService = userService;
+            _unknownService = unknownService;
         }
         public void Run()
         {
@@ -79,7 +82,14 @@ namespace Modul5HW1
                 Console.WriteLine(updateUserResp.Job);
             });
 
-            Task.WhenAll(new[] { t1, t2, t3 , t4 , t5}).GetAwaiter().GetResult();
+
+            var t7 = Task.Run(async () =>
+            {
+                var unknown = await _unknownService.GetResource(_globalId);
+                Console.WriteLine(unknown.Color);
+            });
+
+            Task.WhenAll(new[] { t1, t2, t3, t4, t5, t6, t7}).GetAwaiter().GetResult();
         }
     }
 }

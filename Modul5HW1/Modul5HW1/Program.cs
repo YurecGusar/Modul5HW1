@@ -11,6 +11,7 @@ namespace Modul5HW1
             var services = new ServiceCollection()
                 .AddTransient<Startup>()
                 .AddTransient<IUserService, UserService>()
+                .AddTransient<IUnknownService, UnknownService>()
                 .BuildServiceProvider();
 
             var startup = services.GetService<Startup>();

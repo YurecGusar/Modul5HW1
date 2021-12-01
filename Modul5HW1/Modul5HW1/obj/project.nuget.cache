@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "hznWORuNBxB4U7JEbVLPVhhGypHiKPVNZDLIt0th34j4mv1Qhxo7UzxdTEACskMUMh/H7iox5eR5tngql+ixJQ==",
+  "dgSpecHash": "m5+pqmGzGdyrkDoMwKWrHH1NEReesPDqDPYObrabeixa0/ibjH0FxHUmA17Jr4kUcPQPS6Rwr+EHvySgAqBguA==",
   "success": true,
   "projectFilePath": "C:\\A-level\\Modul5HW1\\Modul5HW1\\Modul5HW1\\Modul5HW1.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\leoon\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.2\\microsoft.extensions.dependencyinjection.5.0.2.nupkg.sha512",
+    "C:\\Users\\leoon\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\leoon\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
